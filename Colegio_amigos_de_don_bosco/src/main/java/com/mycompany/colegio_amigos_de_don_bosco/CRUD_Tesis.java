@@ -1,5 +1,7 @@
 package com.mycompany.colegio_amigos_de_don_bosco;
 
+import javax.swing.JOptionPane;
+
 public class CRUD_Tesis extends javax.swing.JFrame {
 
     /**
@@ -460,10 +462,14 @@ public class CRUD_Tesis extends javax.swing.JFrame {
     }
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        CTesis objetoTesis = new CTesis();
-        objetoTesis.EliminarTesis(txtid);
-        objetoTesis.VerTesis(TablaTesis);
-        objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        if(txttitulo.getText().isEmpty() || txtautor.getText().isEmpty() || txtdirector.getText().isEmpty() || txtinstitucion.getText().isEmpty() || txtyear.getText().isEmpty()|| txtgrado.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
+            }else{
+            CTesis objetoTesis = new CTesis();
+            objetoTesis.EliminarTesis(txtid);
+            objetoTesis.VerTesis(TablaTesis);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TablaTesisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaTesisMouseClicked
@@ -472,17 +478,25 @@ public class CRUD_Tesis extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaTesisMouseClicked
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        CTesis objetoTesis = new CTesis();
-        objetoTesis.InsertarTesis(txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
-        objetoTesis.VerTesis(TablaTesis);
-        objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        if(txttitulo.getText().isEmpty() || txtautor.getText().isEmpty() || txtdirector.getText().isEmpty() || txtinstitucion.getText().isEmpty() || txtyear.getText().isEmpty()|| txtgrado.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
+            }else{
+            CTesis objetoTesis = new CTesis();
+            objetoTesis.InsertarTesis(txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.VerTesis(TablaTesis);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        CTesis objetoTesis = new CTesis();
-        objetoTesis.ActualizarTesis(txtid, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
-        objetoTesis.VerTesis(TablaTesis);
-        objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        if(txttitulo.getText().isEmpty() || txtautor.getText().isEmpty() || txtdirector.getText().isEmpty() || txtinstitucion.getText().isEmpty() || txtyear.getText().isEmpty()|| txtgrado.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
+            }else{
+            CTesis objetoTesis = new CTesis();
+            objetoTesis.ActualizarTesis(txtid, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.VerTesis(TablaTesis);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
