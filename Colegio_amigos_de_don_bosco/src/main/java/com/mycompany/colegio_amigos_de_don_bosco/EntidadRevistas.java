@@ -1,29 +1,11 @@
 package com.mycompany.colegio_amigos_de_don_bosco;
 
-public class EntidadRevistas {
-    int id;
-    String codigo;
+public class EntidadRevistas extends EntidadCamposHeredados{
     String titulo;
     String editorial;
     String edicion;
     String year;
     String periocidad;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
 
     public String getTitulo() {
         return titulo;

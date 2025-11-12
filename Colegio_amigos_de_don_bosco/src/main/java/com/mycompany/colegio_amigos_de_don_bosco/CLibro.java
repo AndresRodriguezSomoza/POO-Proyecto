@@ -8,12 +8,12 @@ import java.util.Random;
 import javax.swing.table.DefaultTableModel;
 
 public class CLibro {
-    public void InsertarLibro(JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
+    public void InsertarLibro(JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
         
         conexiondb objetoConexion = new conexiondb();
         EntidadLibro objetoEntidadLibro = new EntidadLibro();
         
-        String consulta = "insert into libro (cdidentificacion, titulo, autor, editorial, numpag, year, categoria) values (?,?,?,?,?,?,?);";
+        String consulta = "insert into libro (cdidentificacion, stock, titulo, autor, editorial, numpag, year, categoria) values (?,?,?,?,?,?,?);";
         
         Random r = new Random();
         int max=99999,min=10000;
@@ -24,6 +24,7 @@ public class CLibro {
         
         try{
             objetoEntidadLibro.setCodigo(codLIB);
+            objetoEntidadLibro.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadLibro.setTitulo(titulo.getText());
             objetoEntidadLibro.setAutor(autor.getText());
             objetoEntidadLibro.setEditorial(editorial.getText());
@@ -33,12 +34,13 @@ public class CLibro {
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, objetoEntidadLibro.getCodigo());
-            cs.setString(2, objetoEntidadLibro.getTitulo());
-            cs.setString(3, objetoEntidadLibro.getAutor());
-            cs.setString(4, objetoEntidadLibro.getEditorial());
-            cs.setString(5, objetoEntidadLibro.getNumpag());
-            cs.setString(6, objetoEntidadLibro.getYear());
-            cs.setString(7, objetoEntidadLibro.getCategoria());
+            cs.setInt(2, objetoEntidadLibro.getStock());
+            cs.setString(3, objetoEntidadLibro.getTitulo());
+            cs.setString(4, objetoEntidadLibro.getAutor());
+            cs.setString(5, objetoEntidadLibro.getEditorial());
+            cs.setString(6, objetoEntidadLibro.getNumpag());
+            cs.setString(7, objetoEntidadLibro.getYear());
+            cs.setString(8, objetoEntidadLibro.getCategoria());
             
             cs.execute();
             
@@ -61,6 +63,7 @@ public class CLibro {
         
         modelo.addColumn("id");
         modelo.addColumn("cdidentificacion");
+        modelo.addColumn("stock");
         modelo.addColumn("titulo");
         modelo.addColumn("autor");
         modelo.addColumn("editorial");
@@ -72,7 +75,7 @@ public class CLibro {
         
         
         
-        String consulta = "select libro.id, libro.cdidentificacion, libro.titulo, libro.autor, libro.editorial, libro.numpag, libro.year, libro.categoria from libro;";
+        String consulta = "select libro.id, libro.cdidentificacion, libro.stock, libro.titulo, libro.autor, libro.editorial, libro.numpag, libro.year, libro.categoria from libro;";
         
         try{
             Statement st = objetoConexion.establecerConexion().createStatement();
@@ -81,6 +84,7 @@ public class CLibro {
             while(rs.next()){
                 objetoEntidadLibro.setId(rs.getInt("id"));
                 objetoEntidadLibro.setCodigo(rs.getString("cdidentificacion"));
+                objetoEntidadLibro.setStock(rs.getInt("stock"));
                 objetoEntidadLibro.setTitulo(rs.getString("titulo"));
                 objetoEntidadLibro.setAutor(rs.getString("autor"));
                 objetoEntidadLibro.setEditorial(rs.getString("editorial"));
@@ -88,7 +92,7 @@ public class CLibro {
                 objetoEntidadLibro.setYear(rs.getString("year"));
                 objetoEntidadLibro.setCategoria(rs.getString("categoria"));
                 
-                modelo.addRow(new Object[]{objetoEntidadLibro.getId(), objetoEntidadLibro.getCodigo(), objetoEntidadLibro.getTitulo(), objetoEntidadLibro.getAutor(), objetoEntidadLibro.getEditorial(), objetoEntidadLibro.getNumpag(), objetoEntidadLibro.getYear(), objetoEntidadLibro.getCategoria()});
+                modelo.addRow(new Object[]{objetoEntidadLibro.getId(), objetoEntidadLibro.getCodigo(), objetoEntidadLibro.getStock(), objetoEntidadLibro.getTitulo(), objetoEntidadLibro.getAutor(), objetoEntidadLibro.getEditorial(), objetoEntidadLibro.getNumpag(), objetoEntidadLibro.getYear(), objetoEntidadLibro.getCategoria()});
             }
             
         }catch(Exception e){
@@ -99,34 +103,36 @@ public class CLibro {
         }
     }
     
-    public void Seleccionar(JTable TablaLibro, JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
+    public void Seleccionar(JTable TablaLibro, JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
         int fila = TablaLibro.getSelectedRow();
         
         try{
             if(fila>=0){
                 id.setText(TablaLibro.getValueAt(fila, 0).toString());
                 codigo.setText(TablaLibro.getValueAt(fila, 1).toString());
-                titulo.setText(TablaLibro.getValueAt(fila, 2).toString());
-                autor.setText(TablaLibro.getValueAt(fila, 3).toString());
-                editorial.setText(TablaLibro.getValueAt(fila, 4).toString());
-                numpag.setText(TablaLibro.getValueAt(fila, 5).toString());
-                year.setText(TablaLibro.getValueAt(fila, 6).toString());
-                categoria.setText(TablaLibro.getValueAt(fila, 7).toString());
+                stock.setText(TablaLibro.getValueAt(fila, 2).toString());
+                titulo.setText(TablaLibro.getValueAt(fila, 3).toString());
+                autor.setText(TablaLibro.getValueAt(fila, 4).toString());
+                editorial.setText(TablaLibro.getValueAt(fila, 5).toString());
+                numpag.setText(TablaLibro.getValueAt(fila, 6).toString());
+                year.setText(TablaLibro.getValueAt(fila, 7).toString());
+                categoria.setText(TablaLibro.getValueAt(fila, 8).toString());
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al selecciona, error: "+ e.toString());
         }
     }
     
-    public void ActualizarLibro(JTextPane id, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
+    public void ActualizarLibro(JTextPane id, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
         
         conexiondb objetoConexion = new conexiondb();
         EntidadLibro objetoEntidadLibro = new EntidadLibro();
         
-        String consulta = "UPDATE libro SET libro.titulo = ?, libro.autor = ?, libro.editorial = ?, libro.numpag = ?, libro.year = ?, libro.categoria = ? WHERE libro.id = ?;";
+        String consulta = "UPDATE libro SET libro.stock = ?, libro.titulo = ?, libro.autor = ?, libro.editorial = ?, libro.numpag = ?, libro.year = ?, libro.categoria = ? WHERE libro.id = ?;";
         
         try{
             objetoEntidadLibro.setId(Integer.parseInt(id.getText()));
+            objetoEntidadLibro.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadLibro.setTitulo(titulo.getText());
             objetoEntidadLibro.setAutor(autor.getText());
             objetoEntidadLibro.setEditorial(editorial.getText());
@@ -135,13 +141,14 @@ public class CLibro {
             objetoEntidadLibro.setCategoria(categoria.getText());
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-            cs.setString(1, objetoEntidadLibro.getTitulo());
-            cs.setString(2, objetoEntidadLibro.getAutor());
-            cs.setString(3, objetoEntidadLibro.getEditorial());
-            cs.setString(4, objetoEntidadLibro.getNumpag());
-            cs.setString(5, objetoEntidadLibro.getYear());
-            cs.setString(6, objetoEntidadLibro.getCategoria());
-            cs.setInt(7, objetoEntidadLibro.getId());
+            cs.setInt(1, objetoEntidadLibro.getStock());
+            cs.setString(2, objetoEntidadLibro.getTitulo());
+            cs.setString(3, objetoEntidadLibro.getAutor());
+            cs.setString(4, objetoEntidadLibro.getEditorial());
+            cs.setString(5, objetoEntidadLibro.getNumpag());
+            cs.setString(6, objetoEntidadLibro.getYear());
+            cs.setString(7, objetoEntidadLibro.getCategoria());
+            cs.setInt(8, objetoEntidadLibro.getId());
             
             cs.execute();
             
@@ -155,9 +162,10 @@ public class CLibro {
         }
     }
     
-    public void LimpiarCamposLibros(JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
+    public void LimpiarCamposLibros(JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane numpag, JTextPane year, JTextPane categoria){
         id.setText("");
         codigo.setText("");
+        stock.setText("");
         titulo.setText("");
         autor.setText("");
         editorial.setText("");

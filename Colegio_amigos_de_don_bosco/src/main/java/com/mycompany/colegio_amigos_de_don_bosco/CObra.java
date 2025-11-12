@@ -10,12 +10,12 @@ import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CObra {
-    public void InsertarObra(JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
+    public void InsertarObra(JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
         
         conexiondb objetoConexion = new conexiondb();
         EntidadObra objetoEntidadObra = new EntidadObra();
         
-        String consulta = "insert into obra (cdidentificacion, titulo, autor, editorial, year, genero) values (?,?,?,?,?,?);";
+        String consulta = "insert into obra (cdidentificacion, stock, titulo, autor, editorial, year, genero) values (?,?,?,?,?,?);";
         
         Random r = new Random();
         int max=99999,min=10000;
@@ -26,6 +26,7 @@ public class CObra {
         
         try{
             objetoEntidadObra.setCodigo(codOBR);
+            objetoEntidadObra.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadObra.setTitulo(titulo.getText());
             objetoEntidadObra.setAutor(autor.getText());
             objetoEntidadObra.setEditorial(editorial.getText());
@@ -34,11 +35,12 @@ public class CObra {
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, objetoEntidadObra.getCodigo());
-            cs.setString(2, objetoEntidadObra.getTitulo());
-            cs.setString(3, objetoEntidadObra.getAutor());
-            cs.setString(4, objetoEntidadObra.getEditorial());
-            cs.setString(5, objetoEntidadObra.getYear());
-            cs.setString(6, objetoEntidadObra.getGenero());
+            cs.setInt(2, objetoEntidadObra.getStock());
+            cs.setString(3, objetoEntidadObra.getTitulo());
+            cs.setString(4, objetoEntidadObra.getAutor());
+            cs.setString(5, objetoEntidadObra.getEditorial());
+            cs.setString(6, objetoEntidadObra.getYear());
+            cs.setString(7, objetoEntidadObra.getGenero());
             
             cs.execute();
             
@@ -61,6 +63,7 @@ public class CObra {
         
         modelo.addColumn("id");
         modelo.addColumn("cdidentificacion");
+        modelo.addColumn("stock");
         modelo.addColumn("titulo");
         modelo.addColumn("autor");
         modelo.addColumn("editorial");
@@ -69,7 +72,7 @@ public class CObra {
         
         TablaObra.setModel(modelo);
         
-        String consulta = "select obra.id, obra.cdidentificacion, obra.titulo, obra.autor, obra.editorial, obra.year, obra.genero from obra;";
+        String consulta = "select obra.id, obra.cdidentificacion, obra.stock, obra.titulo, obra.autor, obra.editorial, obra.year, obra.genero from obra;";
         
         try{
             Statement st = objetoConexion.establecerConexion().createStatement();
@@ -78,13 +81,14 @@ public class CObra {
             while(rs.next()){
                 objetoEntidadObra.setId(rs.getInt("id"));
                 objetoEntidadObra.setCodigo(rs.getString("cdidentificacion"));
+                objetoEntidadObra.setStock(rs.getInt("stock"));
                 objetoEntidadObra.setTitulo(rs.getString("titulo"));
                 objetoEntidadObra.setAutor(rs.getString("autor"));
                 objetoEntidadObra.setEditorial(rs.getString("editorial"));
                 objetoEntidadObra.setYear(rs.getString("year"));
                 objetoEntidadObra.setGenero(rs.getString("genero"));
                 
-                modelo.addRow(new Object[]{objetoEntidadObra.getId(), objetoEntidadObra.getCodigo(), objetoEntidadObra.getTitulo(), objetoEntidadObra.getAutor(), objetoEntidadObra.getEditorial(), objetoEntidadObra.getYear(), objetoEntidadObra.getGenero()});
+                modelo.addRow(new Object[]{objetoEntidadObra.getId(), objetoEntidadObra.getCodigo(), objetoEntidadObra.getStock(), objetoEntidadObra.getTitulo(), objetoEntidadObra.getAutor(), objetoEntidadObra.getEditorial(), objetoEntidadObra.getYear(), objetoEntidadObra.getGenero()});
             }
             
         }catch(Exception e){
@@ -95,33 +99,35 @@ public class CObra {
         }
     }
     
-    public void Seleccionar(JTable TablaObra, JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
+    public void Seleccionar(JTable TablaObra, JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
         int fila = TablaObra.getSelectedRow();
         
         try{
             if(fila>=0){
                 id.setText(TablaObra.getValueAt(fila, 0).toString());
                 codigo.setText(TablaObra.getValueAt(fila, 1).toString());
-                titulo.setText(TablaObra.getValueAt(fila, 2).toString());
-                autor.setText(TablaObra.getValueAt(fila, 3).toString());
-                editorial.setText(TablaObra.getValueAt(fila, 4).toString());
-                year.setText(TablaObra.getValueAt(fila, 5).toString());
-                genero.setText(TablaObra.getValueAt(fila, 6).toString());
+                stock.setText(TablaObra.getValueAt(fila, 2).toString());
+                titulo.setText(TablaObra.getValueAt(fila, 3).toString());
+                autor.setText(TablaObra.getValueAt(fila, 4).toString());
+                editorial.setText(TablaObra.getValueAt(fila, 5).toString());
+                year.setText(TablaObra.getValueAt(fila, 6).toString());
+                genero.setText(TablaObra.getValueAt(fila, 7).toString());
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al selecciona, error: "+ e.toString());
         }
     }
     
-    public void ActualizarObra(JTextPane id, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
+    public void ActualizarObra(JTextPane id, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
         
         conexiondb objetoConexion = new conexiondb();
         EntidadObra objetoEntidadObra = new EntidadObra();
         
-        String consulta = "UPDATE obra SET obra.titulo = ?, obra.autor = ?, obra.editorial = ?, obra.year = ?, obra.genero = ? WHERE obra.id = ?;";
+        String consulta = "UPDATE obra SET obra.stock = ?, obra.titulo = ?, obra.autor = ?, obra.editorial = ?, obra.year = ?, obra.genero = ? WHERE obra.id = ?;";
         
         try{
             objetoEntidadObra.setId(Integer.parseInt(id.getText()));
+            objetoEntidadObra.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadObra.setTitulo(titulo.getText());
             objetoEntidadObra.setAutor(autor.getText());
             objetoEntidadObra.setEditorial(editorial.getText());
@@ -129,12 +135,13 @@ public class CObra {
             objetoEntidadObra.setGenero(genero.getText());
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-            cs.setString(1, objetoEntidadObra.getTitulo());
-            cs.setString(2, objetoEntidadObra.getAutor());
-            cs.setString(3, objetoEntidadObra.getEditorial());
-            cs.setString(4, objetoEntidadObra.getYear());
-            cs.setString(5, objetoEntidadObra.getGenero());
-            cs.setInt(6, objetoEntidadObra.getId());
+            cs.setInt(1, objetoEntidadObra.getStock());
+            cs.setString(2, objetoEntidadObra.getTitulo());
+            cs.setString(3, objetoEntidadObra.getAutor());
+            cs.setString(4, objetoEntidadObra.getEditorial());
+            cs.setString(5, objetoEntidadObra.getYear());
+            cs.setString(6, objetoEntidadObra.getGenero());
+            cs.setInt(7, objetoEntidadObra.getId());
             
             cs.execute();
             
@@ -148,9 +155,10 @@ public class CObra {
         }
     }
     
-    public void LimpiarCamposObra(JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
+    public void LimpiarCamposObra(JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane editorial, JTextPane year, JTextPane genero){
         id.setText("");
         codigo.setText("");
+        stock.setText("");
         titulo.setText("");
         autor.setText("");
         editorial.setText("");
