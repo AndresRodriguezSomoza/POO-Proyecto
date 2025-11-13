@@ -390,9 +390,9 @@ public class CRUD_Patentes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CPatentes objetoPatentes = new CPatentes();
-            objetoPatentes.InsertarPatentes(txtcodigo, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+            objetoPatentes.InsertarPatentes(txtcodigo, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
             objetoPatentes.VerPatentes(TablaPatente);
-            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -401,9 +401,9 @@ public class CRUD_Patentes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CPatentes objetoPatentes = new CPatentes();
-            objetoPatentes.ActualizarPatente(txtid, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+            objetoPatentes.ActualizarPatente(txtid, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
             objetoPatentes.VerPatentes(TablaPatente);
-            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -414,13 +414,13 @@ public class CRUD_Patentes extends javax.swing.JFrame {
             CPatentes objetoPatentes = new CPatentes();
             objetoPatentes.EliminarPatente(txtid);
             objetoPatentes.VerPatentes(TablaPatente);
-            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+            objetoPatentes.LimpiarCamposPatente(txtid, txtcodigo, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TablaPatenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPatenteMouseClicked
         CPatentes objetoPatentes = new CPatentes();
-        objetoPatentes.Seleccionar(TablaPatente, txtid, txtcodigo, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
+        objetoPatentes.Seleccionar(TablaPatente, txtid, txtcodigo, txtstock, txttitulo, txtinventor, txttitular, txtfecha, txtpais, txtpatente);
     }//GEN-LAST:event_TablaPatenteMouseClicked
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

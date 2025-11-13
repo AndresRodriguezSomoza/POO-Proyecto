@@ -382,13 +382,13 @@ public class CRUD_Revistas extends javax.swing.JFrame {
             CRevistas objetoRevista = new CRevistas();
             objetoRevista.EliminarLibro(txtid);
             objetoRevista.VerRevista(TablaRevista);
-            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TablaRevistaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaRevistaMouseClicked
         CRevistas objetoRevista = new CRevistas();
-        objetoRevista.Seleccionar(TablaRevista, txtid, txtcodigo, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+        objetoRevista.Seleccionar(TablaRevista, txtid, txtcodigo, txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
     }//GEN-LAST:event_TablaRevistaMouseClicked
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
@@ -396,9 +396,9 @@ public class CRUD_Revistas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CRevistas objetoRevista = new CRevistas();
-            objetoRevista.InsertarRevista(txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+            objetoRevista.InsertarRevista(txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
             objetoRevista.VerRevista(TablaRevista);
-            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -407,9 +407,9 @@ public class CRUD_Revistas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CRevistas objetoRevista = new CRevistas();
-            objetoRevista.ActualizarRevista(txtid, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+            objetoRevista.ActualizarRevista(txtid, txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
             objetoRevista.VerRevista(TablaRevista);
-            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
+            objetoRevista.LimpiarCamposRevista(txtid, txtcodigo, txtstock, txttitulo, txteditorial, txtedicion, txtyear, txtcategoria);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

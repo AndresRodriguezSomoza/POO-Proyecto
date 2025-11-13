@@ -90,6 +90,7 @@ public class CRUD_Tesis extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jScrollPane24 = new javax.swing.JScrollPane();
         txtstock = new javax.swing.JTextPane();
+        jLabel9 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -305,15 +306,20 @@ public class CRUD_Tesis extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalir)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9)
-                    .addComponent(jButton5)
-                    .addComponent(jButton10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSalir)
+                            .addComponent(jButton6)
+                            .addComponent(jButton7)
+                            .addComponent(jButton8)
+                            .addComponent(jButton9)
+                            .addComponent(jButton5)
+                            .addComponent(jButton10)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel9)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
@@ -390,22 +396,6 @@ public class CRUD_Tesis extends javax.swing.JFrame {
                             .addComponent(jScrollPane24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel21))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton7)
-                                    .addComponent(jLabel15))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton8)
-                                .addGap(12, 12, 12)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton10)
-                                .addGap(34, 152, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,12 +424,30 @@ public class CRUD_Tesis extends javax.swing.JFrame {
                                 .addComponent(btnCrear)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)
-                                .addContainerGap())))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton7)
+                                    .addComponent(jLabel15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton8)
+                                .addGap(12, 12, 12)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminar)
+                            .addComponent(jLabel9)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                        .addGap(0, 20, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -488,13 +496,13 @@ public class CRUD_Tesis extends javax.swing.JFrame {
             CTesis objetoTesis = new CTesis();
             objetoTesis.EliminarTesis(txtid);
             objetoTesis.VerTesis(TablaTesis);
-            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TablaTesisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaTesisMouseClicked
         CTesis objetoTesis = new CTesis();
-        objetoTesis.Seleccionar(TablaTesis, txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+        objetoTesis.Seleccionar(TablaTesis, txtid, txtcodigo, txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
     }//GEN-LAST:event_TablaTesisMouseClicked
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
@@ -502,9 +510,9 @@ public class CRUD_Tesis extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CTesis objetoTesis = new CTesis();
-            objetoTesis.InsertarTesis(txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.InsertarTesis(txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
             objetoTesis.VerTesis(TablaTesis);
-            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -513,9 +521,9 @@ public class CRUD_Tesis extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No dejar espacios en blancos");
             }else{
             CTesis objetoTesis = new CTesis();
-            objetoTesis.ActualizarTesis(txtid, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.ActualizarTesis(txtid, txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
             objetoTesis.VerTesis(TablaTesis);
-            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
+            objetoTesis.LimpiarCamposTesis(txtid, txtcodigo, txtstock, txttitulo, txtautor, txtdirector, txtinstitucion, txtyear, txtgrado);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -615,6 +623,7 @@ public class CRUD_Tesis extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane17;
