@@ -10,11 +10,11 @@ import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CTesis {
-    public void InsertarTesis(JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
+    public void InsertarTesis(JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
         conexiondb objetoConexion = new conexiondb();
         EntidadTesis objetoEntidadTesis = new EntidadTesis();
         
-        String consulta = "insert into tesis (cdidentificacion, stock, titulo, autor, director, institucion, year, gradoacademico) values (?,?,?,?,?,?,?);";
+        String consulta = "insert into tesis (cdidentificacion, titulo, autor, director, institucion, year, gradoacademico) values (?,?,?,?,?,?,?);";
         
         Random r = new Random();
         int max=99999,min=10000;
@@ -25,7 +25,6 @@ public class CTesis {
         
         try{
             objetoEntidadTesis.setCodigo(codTES);
-            objetoEntidadTesis.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadTesis.setTitulo(titulo.getText());
             objetoEntidadTesis.setAutor(autor.getText());
             objetoEntidadTesis.setDirector(director.getText());
@@ -35,13 +34,12 @@ public class CTesis {
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, objetoEntidadTesis.getCodigo());
-            cs.setInt(2, objetoEntidadTesis.getStock());
-            cs.setString(3, objetoEntidadTesis.getTitulo());
-            cs.setString(4, objetoEntidadTesis.getAutor());
-            cs.setString(5, objetoEntidadTesis.getDirector());
-            cs.setString(6, objetoEntidadTesis.getInstitucion());
-            cs.setString(7, objetoEntidadTesis.getYear());
-            cs.setString(8, objetoEntidadTesis.getGradoacademico());
+            cs.setString(2, objetoEntidadTesis.getTitulo());
+            cs.setString(3, objetoEntidadTesis.getAutor());
+            cs.setString(4, objetoEntidadTesis.getDirector());
+            cs.setString(5, objetoEntidadTesis.getInstitucion());
+            cs.setString(6, objetoEntidadTesis.getYear());
+            cs.setString(7, objetoEntidadTesis.getGradoacademico());
             
             cs.execute();
             
@@ -63,7 +61,6 @@ public class CTesis {
         
         modelo.addColumn("id");
         modelo.addColumn("cdidentificacion");
-        modelo.addColumn("stock");
         modelo.addColumn("titulo");
         modelo.addColumn("autor");
         modelo.addColumn("director");
@@ -73,7 +70,7 @@ public class CTesis {
         
         TablaTesis.setModel(modelo);
         
-        String consulta = "select tesis.id, tesis.cdidentificacion, tesis.stock, tesis.titulo, tesis.autor, tesis.director, tesis.institucion, tesis.year, tesis.gradoacademico from tesis;";
+        String consulta = "select tesis.id, tesis.cdidentificacion, tesis.titulo, tesis.autor, tesis.director, tesis.institucion, tesis.year, tesis.gradoacademico from tesis;";
         
         try{
             Statement st = objetoConexion.establecerConexion().createStatement();
@@ -82,7 +79,6 @@ public class CTesis {
             while(rs.next()){
                 objetoEntidadTesis.setId(rs.getInt("id"));
                 objetoEntidadTesis.setCodigo(rs.getString("cdidentificacion"));
-                objetoEntidadTesis.setStock(rs.getInt("stock"));
                 objetoEntidadTesis.setTitulo(rs.getString("titulo"));
                 objetoEntidadTesis.setAutor(rs.getString("autor"));
                 objetoEntidadTesis.setDirector(rs.getString("director"));
@@ -90,7 +86,7 @@ public class CTesis {
                 objetoEntidadTesis.setYear(rs.getString("year"));
                 objetoEntidadTesis.setGradoacademico(rs.getString("gradoacademico"));
                 
-                modelo.addRow(new Object[]{objetoEntidadTesis.getId(), objetoEntidadTesis.getCodigo(), objetoEntidadTesis.getStock(), objetoEntidadTesis.getTitulo(), objetoEntidadTesis.getAutor(), objetoEntidadTesis.getDirector(), objetoEntidadTesis.getInstitucion(), objetoEntidadTesis.getYear(), objetoEntidadTesis.getGradoacademico()});
+                modelo.addRow(new Object[]{objetoEntidadTesis.getId(), objetoEntidadTesis.getCodigo(), objetoEntidadTesis.getTitulo(), objetoEntidadTesis.getAutor(), objetoEntidadTesis.getDirector(), objetoEntidadTesis.getInstitucion(), objetoEntidadTesis.getYear(), objetoEntidadTesis.getGradoacademico()});
             }
             
         }catch(Exception e){
@@ -101,35 +97,33 @@ public class CTesis {
         }
     }
     
-    public void Seleccionar(JTable TablaTesis, JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
+    public void Seleccionar(JTable TablaTesis, JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
         int fila = TablaTesis.getSelectedRow();
         
         try{
             if(fila>=0){
                 id.setText(TablaTesis.getValueAt(fila, 0).toString());
                 codigo.setText(TablaTesis.getValueAt(fila, 1).toString());
-                stock.setText(TablaTesis.getValueAt(fila, 2).toString());
-                titulo.setText(TablaTesis.getValueAt(fila, 3).toString());
-                autor.setText(TablaTesis.getValueAt(fila, 4).toString());
-                director.setText(TablaTesis.getValueAt(fila, 5).toString());
-                institucion.setText(TablaTesis.getValueAt(fila, 6).toString());
-                year.setText(TablaTesis.getValueAt(fila, 7).toString());
-                academico.setText(TablaTesis.getValueAt(fila, 8).toString());
+                titulo.setText(TablaTesis.getValueAt(fila, 2).toString());
+                autor.setText(TablaTesis.getValueAt(fila, 3).toString());
+                director.setText(TablaTesis.getValueAt(fila, 4).toString());
+                institucion.setText(TablaTesis.getValueAt(fila, 5).toString());
+                year.setText(TablaTesis.getValueAt(fila, 6).toString());
+                academico.setText(TablaTesis.getValueAt(fila, 7).toString());
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al selecciona, error: "+ e.toString());
         }
     }
     
-    public void ActualizarTesis(JTextPane id, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
+    public void ActualizarTesis(JTextPane id, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
         conexiondb objetoConexion = new conexiondb();
         EntidadTesis objetoEntidadTesis = new EntidadTesis();
         
-        String consulta = "UPDATE tesis SET tesis.stock = ?, tesis.titulo = ?, tesis.autor = ?, tesis.director = ?, tesis.institucion = ?, tesis.year = ?, tesis.gradoacademico = ? WHERE tesis.id = ?;";
+        String consulta = "UPDATE tesis SET tesis.titulo = ?, tesis.autor = ?, tesis.director = ?, tesis.institucion = ?, tesis.year = ?, tesis.gradoacademico = ? WHERE tesis.id = ?;";
         
         try{
             objetoEntidadTesis.setId(Integer.parseInt(id.getText()));
-            objetoEntidadTesis.setStock(Integer.parseInt(stock.getText()));
             objetoEntidadTesis.setTitulo(titulo.getText());
             objetoEntidadTesis.setAutor(autor.getText());
             objetoEntidadTesis.setDirector(director.getText());
@@ -138,14 +132,13 @@ public class CTesis {
             objetoEntidadTesis.setGradoacademico(academico.getText());
             
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-            cs.setInt(1, objetoEntidadTesis.getStock());
-            cs.setString(2, objetoEntidadTesis.getTitulo());
-            cs.setString(3, objetoEntidadTesis.getAutor());
-            cs.setString(4, objetoEntidadTesis.getDirector());
-            cs.setString(5, objetoEntidadTesis.getInstitucion());
-            cs.setString(6, objetoEntidadTesis.getYear());
-            cs.setString(7, objetoEntidadTesis.getGradoacademico());
-            cs.setInt(8, objetoEntidadTesis.getId());
+            cs.setString(1, objetoEntidadTesis.getTitulo());
+            cs.setString(2, objetoEntidadTesis.getAutor());
+            cs.setString(3, objetoEntidadTesis.getDirector());
+            cs.setString(4, objetoEntidadTesis.getInstitucion());
+            cs.setString(5, objetoEntidadTesis.getYear());
+            cs.setString(6, objetoEntidadTesis.getGradoacademico());
+            cs.setInt(7, objetoEntidadTesis.getId());
             
             cs.execute();
             
@@ -159,10 +152,9 @@ public class CTesis {
         }
     }
     
-    public void LimpiarCamposTesis(JTextPane id, JTextPane codigo, JTextPane stock, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
+    public void LimpiarCamposTesis(JTextPane id, JTextPane codigo, JTextPane titulo, JTextPane autor, JTextPane director, JTextPane institucion, JTextPane year, JTextPane academico){
         id.setText("");
         codigo.setText("");
-        stock.setText("");
         titulo.setText("");
         autor.setText("");
         director.setText("");

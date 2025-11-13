@@ -1,12 +1,30 @@
 package com.mycompany.colegio_amigos_de_don_bosco;
 
-public class EntidadPatentes extends EntidadCamposHeredados{
+public class EntidadPatentes {
+    int id;
+    String codigo;
     String titulo;
     String inventor;
     String titular;
     String fecha_registro;
     String pais;
     String patente;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
     public String getTitulo() {
         return titulo;
